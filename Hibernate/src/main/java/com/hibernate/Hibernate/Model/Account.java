@@ -1,20 +1,25 @@
 package com.hibernate.Hibernate.Model;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-@Entity
+@Entity(name = "Account_Entity")
 @Table(name = "ACCOUNT_TABLE")
 public class Account {
     @Id
@@ -26,12 +31,11 @@ public class Account {
     @Column(name = "JOIN_DATE")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date joinDate = new Date();
-    @AttributeOverrides({
-        @AttributeOverride(name = "street", column = @Column(name = "STREET_ING")),
-        @AttributeOverride(name = "city", column = @Column(name = "CITY_ING"))
-    })
-    private Address address;
-
+    @ElementCollection
+    @JoinTable(name = "ACCOUNT_JOIN_ADDRESS", joinColumns = @JoinColumn(name = "ACCOUNT_IDS"))
+    @GenericGenerator(name = "myHilo", strategy = "sequence")
+    @CollectionId(columns = @Column(name = "ADDRESS_ID"), type = @Type(type = "long"), generator = "myHilo")
+    private List<Address> addressList = new ArrayList();
 
     public Account() {
     }
@@ -68,12 +72,12 @@ public class Account {
         return this;
     }
 
-    public Address getAddress() {
-        return address;
+    public List<Address> getAddressList() {
+        return addressList;
     }
 
-    public Account setAddress(Address address) {
-        this.address = address;
+    public Account setAddressList(List<Address> addressList) {
+        this.addressList = addressList;
         return this;
     }
 }

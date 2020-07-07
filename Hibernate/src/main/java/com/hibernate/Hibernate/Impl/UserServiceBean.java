@@ -14,6 +14,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service("userService")
 public class UserServiceBean implements UserService {
@@ -42,10 +44,26 @@ public class UserServiceBean implements UserService {
 
     @Override
     public String addAccount(String id, String name) {
-        Address address = new Address("station Road", "Deoria", "274001");
-        Account user1 = new Account().setName("ANUBHAV").setAddress(address);
-        Account user2 = new Account().setName("DHEERAJ").setAddress(address);
-        Account user3 = new Account().setName("SAGER");
+        Address address1 = new Address("station Road1", "Deoria1", "274001");
+        Address address2 = new Address("station Road2", "Deoria2", "274001");
+        Address address3 = new Address("station Road3", "Deoria3", "274001");
+        Address address4 = new Address("station Road4", "Deoria4", "274001");
+        Address address5 = new Address("station Road5", "Deoria5", "274001");
+        Address address6 = new Address("station Road5", "Deoria6", "274001");
+
+        List<Address> one = new ArrayList<>();
+        one.add(address1);
+        one.add(address2);
+        one.add(address3);
+        List<Address> two = new ArrayList<>();
+        two.add(address4);
+        two.add(address5);
+        List<Address> three = new ArrayList<>();
+        three.add(address6);
+
+        Account user1 = new Account().setName("ANUBHAV").setAddressList(one);
+        Account user2 = new Account().setName("DHEERAJ").setAddressList(two);
+        Account user3 = new Account().setName("SAGER").setAddressList(three);
         Account user4 = new Account().setName("SHAID");
         Account user5 = new Account().setName("NOWMAN");
         SessionFactory sessionFactory = getSessionFactory();
