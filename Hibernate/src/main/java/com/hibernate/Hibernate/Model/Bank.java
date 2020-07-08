@@ -4,7 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -14,16 +17,15 @@ public class Bank {
     private String ifsc;
     private String bankName;
 
-    @ManyToOne
-    @JoinColumn(name = "ACCOUNT_ID")
-    private Account account;
+    @ManyToMany
+    private List<Account> accountList=new ArrayList<>();
 
-    public Account getAccount() {
-        return account;
+    public List<Account> getAccountList() {
+        return accountList;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setAccountList(List<Account> accountList) {
+        this.accountList = accountList;
     }
 
     public String getIfsc() {

@@ -5,9 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,7 +24,7 @@ public class Account {
     @Column(name = "JOIN_DATE")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date joinDate = new Date();
-    @OneToMany(mappedBy = "account")
+    @ManyToMany(mappedBy = "accountList")
     private List<Bank> bankList;
 
     public Account() {
