@@ -1,17 +1,15 @@
 package com.hibernate.Hibernate.Model;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import java.util.Date;
 
 @Entity
@@ -26,12 +24,9 @@ public class Account {
     @Column(name = "JOIN_DATE")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date joinDate = new Date();
-    @AttributeOverrides({
-        @AttributeOverride(name = "street", column = @Column(name = "STREET_ING")),
-        @AttributeOverride(name = "city", column = @Column(name = "CITY_ING"))
-    })
-    private Address address;
-
+    @OneToOne
+    @JoinColumn(name = "IFSC_ID")
+    private Bank bank;
 
     public Account() {
     }
@@ -68,12 +63,12 @@ public class Account {
         return this;
     }
 
-    public Address getAddress() {
-        return address;
+    public Bank getBank() {
+        return bank;
     }
 
-    public Account setAddress(Address address) {
-        this.address = address;
+    public Account setBank(Bank bank) {
+        this.bank = bank;
         return this;
     }
 }

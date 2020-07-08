@@ -2,6 +2,7 @@ package com.hibernate.Hibernate.Impl;
 
 import com.hibernate.Hibernate.Model.Account;
 import com.hibernate.Hibernate.Model.Address;
+import com.hibernate.Hibernate.Model.Bank;
 import com.hibernate.Hibernate.service.UserService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -43,8 +44,10 @@ public class UserServiceBean implements UserService {
     @Override
     public String addAccount(String id, String name) {
         Address address = new Address("station Road", "Deoria", "274001");
-        Account user1 = new Account().setName("ANUBHAV").setAddress(address);
-        Account user2 = new Account().setName("DHEERAJ").setAddress(address);
+        Bank dbs = new Bank().setName("DBS");
+        Account user1 = new Account().setName("ANUBHAV").setBank(dbs);
+        Bank pnb = new Bank().setName("PNB");
+        Account user2 = new Account().setName("DHEERAJ").setBank(pnb);
         Account user3 = new Account().setName("SAGER");
         Account user4 = new Account().setName("SHAID");
         Account user5 = new Account().setName("NOWMAN");
@@ -56,6 +59,8 @@ public class UserServiceBean implements UserService {
         session.save(user3);
         session.save(user4);
         session.save(user5);
+        session.save(dbs);
+        session.save(pnb);
         session.getTransaction().commit();
         session.close();
         return "done";
