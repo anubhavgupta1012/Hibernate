@@ -7,6 +7,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +32,7 @@ public class Account {
     @Column(name = "JOIN_DATE")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date joinDate = new Date();
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @JoinTable(name = "ACCOUNT_JOIN_ADDRESS", joinColumns = @JoinColumn(name = "ACCOUNT_IDS"))
     @GenericGenerator(name = "myHilo", strategy = "sequence")
     @CollectionId(columns = @Column(name = "ADDRESS_ID"), type = @Type(type = "long"), generator = "myHilo")
