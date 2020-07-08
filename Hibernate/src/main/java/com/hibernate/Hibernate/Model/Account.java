@@ -6,11 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "ACCOUNT_TABLE")
@@ -24,9 +26,8 @@ public class Account {
     @Column(name = "JOIN_DATE")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date joinDate = new Date();
-    @OneToOne
-    @JoinColumn(name = "IFSC_ID")
-    private Bank bank;
+    @OneToMany(mappedBy = "account")
+    private List<Bank> bankList;
 
     public Account() {
     }
@@ -63,12 +64,12 @@ public class Account {
         return this;
     }
 
-    public Bank getBank() {
-        return bank;
+    public List<Bank> getBankList() {
+        return bankList;
     }
 
-    public Account setBank(Bank bank) {
-        this.bank = bank;
+    public Account setBankList(List<Bank> bankList) {
+        this.bankList = bankList;
         return this;
     }
 }
