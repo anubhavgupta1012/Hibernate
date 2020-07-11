@@ -4,7 +4,6 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("CURRENT_ACCOUNT")
 public class Current extends Account {
 
     private String currentRate;

@@ -14,8 +14,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "ACCOUNT_TABLE")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "AccountType",discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
