@@ -44,7 +44,7 @@ public class UserServiceBean implements UserService {
     @Override
     public String addAccount(String id, String name) {
         Account account = new Account().setName("ANUBHAV");
-        Savings savings = new Savings().setSavingsRate("7");
+        Savings savings = new Savings().setSavingsRate("7").setTransactionalRestriction(true);
         savings.setName("Dheeraj");
         Current current = new Current().setCurrentRate("2");
         current.setName("Deepak");
