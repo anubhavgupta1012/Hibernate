@@ -1,21 +1,21 @@
 package com.hibernate.Hibernate.Model;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "ACCOUNT_TABLE")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "AccountType",discriminatorType = DiscriminatorType.STRING)
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,15 +23,8 @@ public class Account {
     private Integer id;
     @Column(name = "NAME")
     private String name;
-    @Column(name = "JOIN_DATE")
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date joinDate = new Date();
-    @AttributeOverrides({
-        @AttributeOverride(name = "street", column = @Column(name = "STREET_ING")),
-        @AttributeOverride(name = "city", column = @Column(name = "CITY_ING"))
-    })
-    private Address address;
-
+    @Column(name = "IFSC_CODE")
+    private String ifsc;
 
     public Account() {
     }
@@ -55,25 +48,17 @@ public class Account {
     }
 
     public Account setName(String name) {
+        setIfsc();
         this.name = name;
         return this;
     }
 
-    public Date getJoinDate() {
-        return joinDate;
+    public String getIfsc() {
+        return ifsc;
     }
 
-    public Account setJoinDate(Date joinDate) {
-        this.joinDate = joinDate;
-        return this;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public Account setAddress(Address address) {
-        this.address = address;
+    public Account setIfsc() {
+        this.ifsc = UUID.randomUUID().toString().split("-")[0];
         return this;
     }
 }

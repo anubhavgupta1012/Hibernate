@@ -1,7 +1,8 @@
 package com.hibernate.Hibernate.Impl;
 
 import com.hibernate.Hibernate.Model.Account;
-import com.hibernate.Hibernate.Model.Address;
+import com.hibernate.Hibernate.Model.Current;
+import com.hibernate.Hibernate.Model.Savings;
 import com.hibernate.Hibernate.service.UserService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -42,20 +43,17 @@ public class UserServiceBean implements UserService {
 
     @Override
     public String addAccount(String id, String name) {
-        Address address = new Address("station Road", "Deoria", "274001");
-        Account user1 = new Account().setName("ANUBHAV").setAddress(address);
-        Account user2 = new Account().setName("DHEERAJ").setAddress(address);
-        Account user3 = new Account().setName("SAGER");
-        Account user4 = new Account().setName("SHAID");
-        Account user5 = new Account().setName("NOWMAN");
+        Account account = new Account().setName("ANUBHAV");
+        Savings savings = new Savings().setSavingsRate("7");
+        savings.setName("Dheeraj");
+        Current current = new Current().setCurrentRate("2");
+        current.setName("Deepak");
         SessionFactory sessionFactory = getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(user1);
-        session.save(user2);
-        session.save(user3);
-        session.save(user4);
-        session.save(user5);
+        session.save(account);
+        session.save(savings);
+        session.save(current);
         session.getTransaction().commit();
         session.close();
         return "done";
