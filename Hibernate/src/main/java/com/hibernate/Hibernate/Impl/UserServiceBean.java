@@ -5,7 +5,7 @@ import com.hibernate.Hibernate.service.UserService;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 @Service("userService")
 public class UserServiceBean implements UserService {
@@ -58,14 +57,15 @@ public class UserServiceBean implements UserService {
     }
 
     @Override
-    public List<Map> FirstRow() {
+    public List FirstRow() {
         SessionFactory sessionFactory = getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Criteria criteria = session.createCriteria(Account.class);
-        criteria.add(Restrictions.or
-            (Restrictions.eq("id", 6), Restrictions.ge("id", 7)));
+        Criteria criteria1 = criteria.setProjection(Projections.max("id"));
+        criteria.setProjection(Projections.property("id"));
         List list = criteria.list();
+        System.out.println(criteria1.list());
         session.getTransaction().commit();
         session.close();
         return list;

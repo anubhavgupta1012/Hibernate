@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -23,9 +22,7 @@ public class UserController {
     }
 
     @RequestMapping("/getFirst")
-    public List<Map> getFirst() {
+    public List getFirst() {
         return userService.FirstRow();
     }
-
-
 }
