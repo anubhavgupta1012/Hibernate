@@ -14,7 +14,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "ACCOUNT_TABLE")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

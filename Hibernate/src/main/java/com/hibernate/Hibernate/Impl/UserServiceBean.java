@@ -1,8 +1,6 @@
 package com.hibernate.Hibernate.Impl;
 
 import com.hibernate.Hibernate.Model.Account;
-import com.hibernate.Hibernate.Model.Current;
-import com.hibernate.Hibernate.Model.Savings;
 import com.hibernate.Hibernate.service.UserService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -44,16 +42,10 @@ public class UserServiceBean implements UserService {
     @Override
     public String addAccount(String id, String name) {
         Account account = new Account().setName("ANUBHAV");
-        Savings savings = new Savings().setSavingsRate("7").setTransactionalRestriction(true);
-        savings.setName("Dheeraj");
-        Current current = new Current().setCurrentRate("2");
-        current.setName("Deepak");
         SessionFactory sessionFactory = getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.save(account);
-        session.save(savings);
-        session.save(current);
         session.getTransaction().commit();
         session.close();
         return "done";
@@ -63,7 +55,11 @@ public class UserServiceBean implements UserService {
     public Account FirstRow() {
         SessionFactory sessionFactory = getSessionFactory();
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
         Account account = session.get(Account.class, 1);
+        account.setName("DHEERAJ");
+        session.update(account);
+        session.getTransaction().commit();
         session.close();
         return account;
     }
