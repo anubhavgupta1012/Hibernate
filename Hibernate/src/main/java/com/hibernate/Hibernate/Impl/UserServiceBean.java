@@ -2,9 +2,10 @@ package com.hibernate.Hibernate.Impl;
 
 import com.hibernate.Hibernate.Model.Account;
 import com.hibernate.Hibernate.service.UserService;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -61,15 +62,10 @@ public class UserServiceBean implements UserService {
         SessionFactory sessionFactory = getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        String idGreater = "5";
-        Query query = session.createSQLQuery("select * FROM Account_table ac WHERE account_id > ? and name = ?");
-        query.setParameter(1, Integer.parseInt(idGreater));
-        query.setParameter(2, "ANUBHAV7");
-        List<Map> list = query.list();
-
-        Query query1 =
-            session.createSQLQuery("select * FROM Account_table ac WHERE account_id > :id and name = :name");
-        list.addAll(query1.list());
+        Criteria criteria = session.createCriteria(Account.class);
+        criteria.add(Restrictions.or
+            (Restrictions.eq("id", 6), Restrictions.ge("id", 7)));
+        List list = criteria.list();
         session.getTransaction().commit();
         session.close();
         return list;
