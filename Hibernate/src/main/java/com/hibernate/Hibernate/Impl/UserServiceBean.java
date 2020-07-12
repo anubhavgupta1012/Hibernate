@@ -4,6 +4,7 @@ import com.hibernate.Hibernate.Model.Account;
 import com.hibernate.Hibernate.service.UserService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 @Service("userService")
 public class UserServiceBean implements UserService {
@@ -41,26 +44,34 @@ public class UserServiceBean implements UserService {
 
     @Override
     public String addAccount(String id, String name) {
-        Account account = new Account().setName("ANUBHAV");
         SessionFactory sessionFactory = getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(account);
+        for (int i = 1; i < 11; i++) {
+            Account account = new Account().setName("ANUBHAV" + i);
+            session.save(account);
+        }
         session.getTransaction().commit();
         session.close();
         return "done";
     }
 
     @Override
-    public Account FirstRow() {
+    public List<Map> FirstRow() {
         SessionFactory sessionFactory = getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Account account = session.get(Account.class, 1);
-        account.setName("DHEERAJ");
-        session.update(account);
+        String idGreater = "5";
+        Query query = session.createSQLQuery("select * FROM Account_table ac WHERE account_id > ? and name = ?");
+        query.setParameter(1, Integer.parseInt(idGreater));
+        query.setParameter(2, "ANUBHAV7");
+        List<Map> list = query.list();
+
+        Query query1 =
+            session.createSQLQuery("select * FROM Account_table ac WHERE account_id > :id and name = :name");
+        list.addAll(query1.list());
         session.getTransaction().commit();
         session.close();
-        return account;
+        return list;
     }
 }

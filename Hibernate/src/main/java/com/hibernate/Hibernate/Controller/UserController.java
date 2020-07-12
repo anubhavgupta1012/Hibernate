@@ -1,6 +1,5 @@
 package com.hibernate.Hibernate.Controller;
 
-import com.hibernate.Hibernate.Model.Account;
 import com.hibernate.Hibernate.service.UserService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -22,7 +23,7 @@ public class UserController {
     }
 
     @RequestMapping("/getFirst")
-    public Account getFirst() {
+    public List<Map> getFirst() {
         return userService.FirstRow();
     }
 

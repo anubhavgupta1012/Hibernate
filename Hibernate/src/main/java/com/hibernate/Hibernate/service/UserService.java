@@ -1,12 +1,12 @@
 package com.hibernate.Hibernate.service;
 
-import com.hibernate.Hibernate.Model.Account;
-
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 public interface UserService {
 
     public String addAccount(String id, String name) throws SQLException, ClassNotFoundException;
 
-    Account FirstRow();
+    List<Map> FirstRow();
 }
