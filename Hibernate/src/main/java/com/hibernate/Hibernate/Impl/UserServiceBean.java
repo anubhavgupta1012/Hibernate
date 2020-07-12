@@ -5,7 +5,7 @@ import com.hibernate.Hibernate.service.UserService;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -61,11 +61,15 @@ public class UserServiceBean implements UserService {
         SessionFactory sessionFactory = getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Criteria criteria = session.createCriteria(Account.class);
-        Criteria criteria1 = criteria.setProjection(Projections.max("id"));
-        criteria.setProjection(Projections.property("id"));
+
+        Account account = new Account();
+        //account.setId(1);
+        account.setIfsc("1540a107");
+
+        Example example = Example.create(account).enableLike();
+
+        Criteria criteria = session.createCriteria(Account.class).add(example);
         List list = criteria.list();
-        System.out.println(criteria1.list());
         session.getTransaction().commit();
         session.close();
         return list;

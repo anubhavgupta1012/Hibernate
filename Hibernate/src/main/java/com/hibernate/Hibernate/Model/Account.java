@@ -1,14 +1,10 @@
 package com.hibernate.Hibernate.Model;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import java.util.UUID;
 
@@ -57,6 +53,11 @@ public class Account {
 
     public Account setIfsc() {
         this.ifsc = UUID.randomUUID().toString().split("-")[0];
+        return this;
+    }
+
+    public Account setIfsc(String ifsc) {
+        this.ifsc = ifsc;
         return this;
     }
 }
