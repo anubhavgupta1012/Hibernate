@@ -4,6 +4,7 @@ import com.hibernate.Hibernate.Model.Account;
 import com.hibernate.Hibernate.service.UserService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Service("userService")
 public class UserServiceBean implements UserService {
@@ -58,18 +60,22 @@ public class UserServiceBean implements UserService {
         SessionFactory sessionFactory = getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Account account = session.get(Account.class, 7);
-        account.setName("ANUBHAV");
+        Query query = session.createQuery("select ac from Account ac");
+        query.setCacheable(true);
+        List list = query.list();
         session.getTransaction().commit();
         session.close();
 
 
         Session session2 = sessionFactory.openSession();
         session2.beginTransaction();
-        Account account3 = session2.get(Account.class, 7);
+        Query query2 = session2.createQuery("select ac from Account ac");
+        query2.setCacheable(true);
+        List list2 = query2.list();
+
         session2.getTransaction().commit();
         session2.close();
 
-        return account3;
+        return (Account) list.get(0);
     }
 }
