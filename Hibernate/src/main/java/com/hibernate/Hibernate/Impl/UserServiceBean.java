@@ -2,10 +2,8 @@ package com.hibernate.Hibernate.Impl;
 
 import com.hibernate.Hibernate.Model.Account;
 import com.hibernate.Hibernate.service.UserService;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +13,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 @Service("userService")
 public class UserServiceBean implements UserService {
@@ -57,21 +54,17 @@ public class UserServiceBean implements UserService {
     }
 
     @Override
-    public List FirstRow() {
+    public Account FirstRow() {
         SessionFactory sessionFactory = getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+        Account account = session.get(Account.class, 7);
+        account.setName("DHEERAJ");
+        session.update(account);
+        Account account2 = session.get(Account.class, 7);
 
-        Account account = new Account();
-        //account.setId(1);
-        account.setIfsc("1540a107");
-
-        Example example = Example.create(account).enableLike();
-
-        Criteria criteria = session.createCriteria(Account.class).add(example);
-        List list = criteria.list();
         session.getTransaction().commit();
         session.close();
-        return list;
+        return account2;
     }
 }
