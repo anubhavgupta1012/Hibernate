@@ -52,6 +52,11 @@
 			<artifactId>postgresql</artifactId>
 			<version>42.2.11</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>5.4.18.Final</version>
+		</dependency>
 	</dependencies>
 
 	<build>

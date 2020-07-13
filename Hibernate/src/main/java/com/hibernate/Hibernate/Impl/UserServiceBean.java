@@ -59,12 +59,17 @@ public class UserServiceBean implements UserService {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Account account = session.get(Account.class, 7);
-        account.setName("DHEERAJ");
-        session.update(account);
-        Account account2 = session.get(Account.class, 7);
-
+        account.setName("ANUBHAV");
         session.getTransaction().commit();
         session.close();
-        return account2;
+
+
+        Session session2 = sessionFactory.openSession();
+        session2.beginTransaction();
+        Account account3 = session2.get(Account.class, 7);
+        session2.getTransaction().commit();
+        session2.close();
+
+        return account3;
     }
 }
