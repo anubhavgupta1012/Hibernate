@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @Service("userService")
 public class UserServiceBean implements UserService {
@@ -43,14 +44,24 @@ public class UserServiceBean implements UserService {
     @Override
     public String addAccount(String id, String name) {
         //Address address = new Address("station Road", "Deoria", "274001");
-        Bank dbs = new Bank().setBankName("DBS");
-        Bank pnb = new Bank().setBankName("PNB");
+
+
+        ArrayList<Account> list1 = new ArrayList<>();
+        ArrayList<Account> list2 = new ArrayList<>();
+        Account user1 = new Account().setName("ANUBHAV");
+        Account user2 = new Account().setName("DHEERAJ");
+        Account user3 = new Account().setName("SAGER");
+        Account user4 = new Account().setName("SHAID");
+        Account user5 = new Account().setName("NOWMAN");
+        list1.add(user1);
+        list1.add(user2);
+        list2.add(user3);
+        list2.add(user4);
+        list2.add(user5);
+
+        Bank dbs = new Bank().setBankName("DBS").setAccountList(list1);
+        Bank pnb = new Bank().setBankName("PNB").setAccountList(list2);
         Bank sbi = new Bank().setBankName("sbi");
-        Account user1 = new Account().setName("ANUBHAV").setBank(dbs);
-        Account user2 = new Account().setName("DHEERAJ").setBank(dbs);
-        Account user3 = new Account().setName("SAGER").setBank(sbi);
-        Account user4 = new Account().setName("SHAID").setBank(sbi);
-        Account user5 = new Account().setName("NOWMAN").setBank(sbi);
         SessionFactory sessionFactory = getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();

@@ -15,8 +15,8 @@ public class Account {
     @Column(name = "JOIN_DATE")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date joinDate = new Date();
-    @ManyToOne
-    private Bank bank;
+/*    @ManyToOne
+    private Bank bank;*/
 
     public Account() {
     }
@@ -53,12 +53,12 @@ public class Account {
         return this;
     }
 
-    public Bank getBank() {
+  /*  public Bank getBank() {
         return bank;
     }
 
     public Account setBank(Bank bank) {
         this.bank = bank;
         return this;
-    }
+    }*/
 }
