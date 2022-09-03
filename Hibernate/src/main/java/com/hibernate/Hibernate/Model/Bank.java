@@ -14,18 +14,6 @@ public class Bank {
     private String ifsc;
     private String bankName;
 
-    @ManyToOne
-    @JoinColumn(name = "ACCOUNT_ID")
-    private Account account;
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
     public String getIfsc() {
         return ifsc;
     }

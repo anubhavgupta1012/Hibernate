@@ -1,18 +1,7 @@
 package com.hibernate.Hibernate.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "ACCOUNT_TABLE")
@@ -26,8 +15,8 @@ public class Account {
     @Column(name = "JOIN_DATE")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date joinDate = new Date();
-    @OneToMany(mappedBy = "account")
-    private List<Bank> bankList;
+    @ManyToOne
+    private Bank bank;
 
     public Account() {
     }
@@ -64,12 +53,12 @@ public class Account {
         return this;
     }
 
-    public List<Bank> getBankList() {
-        return bankList;
+    public Bank getBank() {
+        return bank;
     }
 
-    public Account setBankList(List<Bank> bankList) {
-        this.bankList = bankList;
+    public Account setBank(Bank bank) {
+        this.bank = bank;
         return this;
     }
 }

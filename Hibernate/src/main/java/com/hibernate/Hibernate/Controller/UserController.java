@@ -26,6 +26,4 @@ public class UserController {
     public Account getFirst() {
         return userService.FirstRow();
     }
-
-
 }

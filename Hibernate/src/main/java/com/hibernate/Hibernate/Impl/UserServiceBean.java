@@ -1,7 +1,6 @@
 package com.hibernate.Hibernate.Impl;
 
 import com.hibernate.Hibernate.Model.Account;
-import com.hibernate.Hibernate.Model.Address;
 import com.hibernate.Hibernate.Model.Bank;
 import com.hibernate.Hibernate.service.UserService;
 import org.hibernate.Session;
@@ -15,8 +14,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service("userService")
 public class UserServiceBean implements UserService {
@@ -33,9 +30,9 @@ public class UserServiceBean implements UserService {
     private org.postgresql.jdbc.PgStatement setConnection() throws ClassNotFoundException, SQLException {
         Class.forName("org.postgresql.Driver");
         Connection c = DriverManager.
-            getConnection(url, username, password);
+                getConnection(url, username, password);
         org.postgresql.jdbc.PgStatement stmt = (org.postgresql.jdbc.PgStatement) c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-            ResultSet.CONCUR_READ_ONLY);
+                ResultSet.CONCUR_READ_ONLY);
         return stmt;
     }
 
@@ -45,24 +42,16 @@ public class UserServiceBean implements UserService {
 
     @Override
     public String addAccount(String id, String name) {
-        Address address = new Address("station Road", "Deoria", "274001");
+        //Address address = new Address("station Road", "Deoria", "274001");
         Bank dbs = new Bank().setBankName("DBS");
         Bank pnb = new Bank().setBankName("PNB");
         Bank sbi = new Bank().setBankName("sbi");
-        List list1 = new ArrayList();
-        list1.add(dbs);
-        List list2 = new ArrayList();
-        list2.add(sbi);
-        list2.add(pnb);
-        Account user1 = new Account().setName("ANUBHAV").setBankList(list2);
-        Account user2 = new Account().setName("DHEERAJ").setBankList(list1);
-        Account user3 = new Account().setName("SAGER");
-        Account user4 = new Account().setName("SHAID");
-        Account user5 = new Account().setName("NOWMAN");
+        Account user1 = new Account().setName("ANUBHAV").setBank(dbs);
+        Account user2 = new Account().setName("DHEERAJ").setBank(dbs);
+        Account user3 = new Account().setName("SAGER").setBank(sbi);
+        Account user4 = new Account().setName("SHAID").setBank(sbi);
+        Account user5 = new Account().setName("NOWMAN").setBank(sbi);
         SessionFactory sessionFactory = getSessionFactory();
-        sbi.setAccount(user1);
-        pnb.setAccount(user1);
-        dbs.setAccount(user2);
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.save(user1);
