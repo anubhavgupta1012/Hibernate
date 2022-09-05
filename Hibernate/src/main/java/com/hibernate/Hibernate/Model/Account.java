@@ -1,14 +1,6 @@
 package com.hibernate.Hibernate.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +16,7 @@ public class Account {
     @Column(name = "JOIN_DATE")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date joinDate = new Date();
-    @ManyToMany(mappedBy = "accountList")
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Bank> bankList;
 
     public Account() {
